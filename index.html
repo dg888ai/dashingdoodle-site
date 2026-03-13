@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashing Doodle — Pixel Art Endless Runner</title>
+    <meta name="description" content="Dashing Doodle is an 8-bit pixel art endless runner featuring adorable Goldendoodles. Dodge animals, collect treats, unlock breeds!">
+    <link rel="icon" type="image/png" href="assets/favicon.png">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@400;600;700&display=swap');
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg-dark: #1a1410;
+            --bg-card: #2a2018;
+            --brown-dark: #2e2117;
+            --brown-mid: #594033;
+            --cream: #d1b894;
+            --cream-light: #ead9c0;
+            --gold: #dcb850;
+            --gold-light: #f0dc78;
+            --accent: #e8a040;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-dark);
+            color: var(--cream);
+            min-height: 100vh;
+        }
+
+        /* Hero */
+        .hero {
+            text-align: center;
+            padding: 60px 20px 40px;
+            background: linear-gradient(180deg, #2a2820 0%, var(--bg-dark) 100%);
+        }
+
+        .hero h1 {
+            font-family: 'Press Start 2P', monospace;
+            font-size: clamp(24px, 5vw, 48px);
+            color: var(--gold);
+            text-shadow: 3px 3px 0 var(--brown-dark);
+            margin-bottom: 8px;
+            letter-spacing: 2px;
+        }
+
+        .hero .tagline {
+            font-size: clamp(14px, 2.5vw, 20px);
+            color: var(--cream);
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        .hero .subtitle {
+            font-family: 'Press Start 2P', monospace;
+            font-size: clamp(10px, 1.5vw, 14px);
+            color: var(--accent);
+            margin-bottom: 40px;
+            letter-spacing: 1px;
+        }
+
+        /* CTA Buttons */
+        .cta-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 40px;
+        }
+
+        .cta-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 28px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+        }
+
+        .cta-btn.google-play {
+            background: var(--gold);
+            color: var(--brown-dark);
+        }
+
+        .cta-btn.app-store {
+            background: var(--brown-mid);
+            color: var(--cream);
+            border: 2px solid var(--cream);
+            opacity: 0.6;
+            pointer-events: none;
+        }
+
+        .cta-btn .badge { font-size: 11px; opacity: 0.7; }
+
+        /* Screenshot strip */
+        .screenshots {
+            padding: 20px;
+            overflow-x: auto;
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .screenshots img {
+            height: 200px;
+            border-radius: 8px;
+            border: 2px solid var(--brown-mid);
+            image-rendering: pixelated;
+        }
+
+        /* Features */
+        .features {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 50px 20px;
+        }
+
+        .features h2 {
+            font-family: 'Press Start 2P', monospace;
+            font-size: clamp(14px, 2vw, 20px);
+            color: var(--gold);
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .feature-card {
+            background: var(--bg-card);
+            border: 1px solid var(--brown-mid);
+            border-radius: 10px;
+            padding: 24px;
+        }
+
+        .feature-card .icon {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .feature-card h3 {
+            color: var(--cream-light);
+            margin-bottom: 8px;
+            font-size: 16px;
+        }
+
+        .feature-card p {
+            font-size: 14px;
+            line-height: 1.6;
+            opacity: 0.8;
+        }
+
+        /* Breeds */
+        .breeds {
+            text-align: center;
+            padding: 50px 20px;
+            background: var(--bg-card);
+        }
+
+        .breeds h2 {
+            font-family: 'Press Start 2P', monospace;
+            font-size: clamp(14px, 2vw, 20px);
+            color: var(--gold);
+            margin-bottom: 10px;
+        }
+
+        .breeds .count {
+            color: var(--cream);
+            opacity: 0.7;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+
+        .breed-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            justify-content: center;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .breed-tag {
+            background: var(--brown-mid);
+            color: var(--cream);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            border: 1px solid var(--cream);
+            opacity: 0.9;
+        }
+
+        .breed-tag.free { border-color: var(--gold); color: var(--gold); }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            border-top: 1px solid var(--brown-mid);
+        }
+
+        footer .dev {
+            color: var(--cream);
+            opacity: 0.6;
+            font-size: 13px;
+            margin-bottom: 12px;
+        }
+
+        footer .links {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        footer .links a {
+            color: var(--accent);
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        footer .links a:hover { text-decoration: underline; }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .hero { padding: 40px 16px 30px; }
+            .features { padding: 30px 16px; }
+            .screenshots img { height: 150px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Hero -->
+    <section class="hero">
+        <h1>DASHING DOODLE</h1>
+        <p class="tagline">🐕 An 8-bit pixel art endless runner featuring adorable Goldendoodles</p>
+        <p class="subtitle">Dodge animals · Collect treats · Unlock breeds</p>
+
+        <div class="cta-buttons">
+            <a href="#" class="cta-btn google-play">
+                <span>▶</span>
+                <span>Coming Soon<br><span class="badge">Google Play</span></span>
+            </a>
+            <a href="#" class="cta-btn app-store">
+                <span>🍎</span>
+                <span>Coming Soon<br><span class="badge">App Store</span></span>
+            </a>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section class="features">
+        <h2>FEATURES</h2>
+        <div class="feature-grid">
+            <div class="feature-card">
+                <div class="icon">🌍</div>
+                <h3>9 Unique Stages</h3>
+                <p>Journey from city streets through countryside, summer fields, mountain peaks, and winter wonderlands. Each stage has multi-layer parallax scrolling.</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon">🐕</div>
+                <h3>11+ Playable Breeds</h3>
+                <p>Start with 3 free breeds and unlock more with bones. Each breed has 10 unique animations — run, jump, bark, sleep, and more!</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon">⚡</div>
+                <h3>Power-ups & Treats</h3>
+                <p>Collect bones, drumsticks, golden bones, tennis balls, and the legendary Steak Mega Treat — ZOOMIES!!!</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon">🔄</div>
+                <h3>Lap System</h3>
+                <p>Complete all 9 stages and loop back for another lap. How many laps can your doodle dash?</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon">🎨</div>
+                <h3>Retro Pixel Art</h3>
+                <p>Beautiful 8-bit pixel art with bright, cheerful visuals. Pixel-perfect rendering at 640×360.</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon">😴</div>
+                <h3>Kid-Friendly</h3>
+                <p>No violence — when your dog gets hit, they just take a nap! Designed for players of all ages.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Breeds -->
+    <section class="breeds">
+        <h2>PLAYABLE BREEDS</h2>
+        <p class="count">11 breeds available — more coming soon!</p>
+        <div class="breed-list">
+            <span class="breed-tag free">English Cream Doodle ★</span>
+            <span class="breed-tag free">Classic Goldendoodle ★</span>
+            <span class="breed-tag free">Australian Labradoodle ★</span>
+            <span class="breed-tag">Golden Retriever</span>
+            <span class="breed-tag">Dalmatian</span>
+            <span class="breed-tag">Labrador</span>
+            <span class="breed-tag">Husky</span>
+            <span class="breed-tag">Rottweiler</span>
+            <span class="breed-tag">Cane Corso</span>
+            <span class="breed-tag">Dogo Argentino</span>
+            <span class="breed-tag">Pharaoh Hound</span>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p class="dev">Developed by KWX</p>
+        <div class="links">
+            <a href="/privacy">Privacy Policy</a>
+            <a href="mailto:support@dashingdoodle.com">Contact</a>
+        </div>
+        <p class="dev" style="margin-top: 16px;">© 2026 KWX. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>
