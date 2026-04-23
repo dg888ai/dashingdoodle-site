@@ -300,15 +300,49 @@
 
         footer .links a:hover { text-decoration: underline; }
 
+        /* Launch Banner */
+        .launch-banner {
+            background: linear-gradient(90deg, #e8a040 0%, #dcb850 50%, #e8a040 100%);
+            color: #1a1410;
+            text-align: center;
+            padding: 12px 20px;
+            font-weight: 700;
+            font-size: 15px;
+            letter-spacing: 0.3px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+            position: relative;
+            z-index: 10;
+        }
+        .launch-banner a {
+            color: #1a1410;
+            text-decoration: underline;
+            font-weight: 800;
+        }
+        .launch-banner a:hover { color: #000; }
+        .launch-banner .pulse {
+            display: inline-block;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.15); }
+        }
+
         /* Responsive */
         @media (max-width: 600px) {
             .hero { padding: 40px 16px 30px; }
             .features { padding: 30px 16px; }
             .screenshots img { height: 150px; }
+            .launch-banner { font-size: 13px; padding: 10px 14px; }
         }
     </style>
 </head>
 <body>
+
+    <!-- Launch Banner -->
+    <div class="launch-banner">
+        <span class="pulse">🎉</span> <strong>Now Live on Google Play!</strong> <a href="https://play.google.com/store/apps/details?id=com.kwx.dashingdoodle" target="_blank" rel="noopener">Download Dashing Doodle free →</a>
+    </div>
 
     <!-- Hero -->
     <section class="hero">
